@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--hibernate核心配置文件 引入约束dtd文件 根标签：hibernate-configuration 注意不是hibernate-mapping-->
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+    <hibernate-configuration>
+       <session-factory>
+		    <!-- 第一部分：配置数据库信息 -->
+		    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		    <!-- 如果不指定字符集，存储中文时会出现乱码 -->
+			<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hibernate_day02?useUnicode=true&amp;characterEncoding=UTF-8</property>
+			<property name="hibernate.connection.username">root</property>
+			<property name="hibernate.connection.password">Liguojun@1234567</property>
+			<!-- 第二部分：配置hibernate信息,用于输出底层的SQL语句 -->
+			<property name="hibernate.show_sql">true</property>
+			<!--输出底层SQL语句进行格式化  -->
+			<property name="hibernate.format_sql">true</property>
+			<!--hibernate帮助创建表，需要配置之后才可以用  
+			update:优点。如果有表，对表更新，如果没有，则帮助创建表-->
+			<property name="hibernate.hbm2ddl.auto">update</property>
+			<!-- 配置数据库方言 ：方言：在mysql里，例如：实现分页时的关键字limit ，只能在mysql里使用  方言：让hibernate识别不同数据的语句-->
+			<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+			
+			<!-- 在Hibernate核心配置文件中配置 绑定本线程session -->
+			<property name="hibernate.current_session_context_class">thread</property>
+			<!--重点： 第三部分：在核心配置文件中引入其他配置文件 -->
+			<mapping resource="Mappings/User.hbm.xml"/>
+			
+       </session-factory>
+    </hibernate-configuration>
